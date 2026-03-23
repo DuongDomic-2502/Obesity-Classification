@@ -16,9 +16,17 @@ X_train, X_val, y_train, y_val = train_test_split(
     X_train, y_train, test_size=0.2, random_state=42, stratify=y_train
 )
 
+# FIX: reset index sau khi split để tránh lệch index khi concat về sau
+for data in [X_train, X_val, X_test]:
+    data.reset_index(drop=True, inplace=True)
+
+y_train = y_train.reset_index(drop=True)
+y_val   = y_val.reset_index(drop=True)
+y_test  = y_test.reset_index(drop=True)
+
 ############################################## ENCODING ##########################################
 
-# 1. Binary Encoding (dùng mapping thay LabelEncoder)
+# 1. Binary Encoding
 binary_cols = ['FAVC', 'SCC', 'SMOKE', 'family_history_with_overweight', 'Gender']
 
 binary_mapping = {
@@ -39,9 +47,7 @@ for data in [X_train, X_val, X_test]:
     data['MTRANS'] = pd.Categorical(
         data['MTRANS'], categories=mtrans_order, ordered=True
     ).codes
-
-    # xử lý nếu có giá trị lạ
-    data['MTRANS'].replace(-1, None, inplace=True)
+    data['MTRANS'] = data['MTRANS'].replace(-1, pd.NA)
 
 # 3. CALC, CAEC (Ordinal)
 ordinal_order = ['no', 'Sometimes', 'Frequently', 'Always']
@@ -60,16 +66,23 @@ target_order = [
 
 oe_target = OrdinalEncoder(categories=[target_order])
 
-y_train = oe_target.fit_transform(y_train.values.reshape(-1,1)).ravel()
-y_val   = oe_target.transform(y_val.values.reshape(-1,1)).ravel()
-y_test  = oe_target.transform(y_test.values.reshape(-1,1)).ravel()
+y_train = oe_target.fit_transform(y_train.values.reshape(-1, 1)).ravel()
+y_val   = oe_target.transform(y_val.values.reshape(-1, 1)).ravel()
+y_test  = oe_target.transform(y_test.values.reshape(-1, 1)).ravel()
 
 ############################################## SAVE ##########################################
 
 train_df = pd.concat([X_train, pd.Series(y_train, name='NObeyesdad')], axis=1)
-val_df   = pd.concat([X_val, pd.Series(y_val, name='NObeyesdad')], axis=1)
-test_df  = pd.concat([X_test, pd.Series(y_test, name='NObeyesdad')], axis=1)
+val_df   = pd.concat([X_val,   pd.Series(y_val,   name='NObeyesdad')], axis=1)
+test_df  = pd.concat([X_test,  pd.Series(y_test,  name='NObeyesdad')], axis=1)
+
+# Kiểm tra trước khi save
+assert train_df.isnull().sum().sum() == 0, "train_df vẫn còn NaN!"
+assert val_df.isnull().sum().sum() == 0,   "val_df vẫn còn NaN!"
+assert test_df.isnull().sum().sum() == 0,  "test_df vẫn còn NaN!"
 
 train_df.to_csv('D:\\MachineLearning\\BTL\\train.csv', index=False)
-val_df.to_csv('D:\\MachineLearning\\BTL\\val.csv', index=False)
-test_df.to_csv('D:\\MachineLearning\\BTL\\test.csv', index=False)
+val_df.to_csv('D:\\MachineLearning\\BTL\\val.csv',     index=False)
+test_df.to_csv('D:\\MachineLearning\\BTL\\test.csv',   index=False)
+
+print(f"Done! train={len(train_df)}, val={len(val_df)}, test={len(test_df)}")
