@@ -5,7 +5,7 @@ from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 
-data = pd.read_csv('/content/train_scaled.csv')
+data = pd.read_csv('D:\\MachineLearning\\BTL\\data\\scaled\\train_scaled.csv')
 
 X = data.drop(columns=['NObeyesdad']).values
 y = data['NObeyesdad'].astype(int).values
@@ -23,7 +23,7 @@ print(f"Explained variance ratio : {pca.explained_variance_ratio_}")
 print(f"Tổng phương sai giữ lại  : {pca.explained_variance_ratio_.sum():.3f}")
 
 # LDA 
-# LDA tối đa n_classes - 1 = 6 components
+# LDA tối đa n_classes - 1 = 6 components~
 lda = LinearDiscriminantAnalysis(n_components=6)
 X_lda = lda.fit_transform(X, y)
 
