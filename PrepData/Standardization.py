@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import StandardScaler, RobustScaler
 
 
@@ -60,6 +61,9 @@ test_df.to_csv('D:\\MachineLearning\\BTL\\test_scaled.csv', index=False)
 
 print("\n Đã lưu train/val/test scaled")
 
+############################################################# kiểm tra độ tốt của dữ liệu đã chuẩn hóa #############################################################
+
+
 
 
 # Gender: Feature, Categorical, "Gender"
@@ -82,3 +86,8 @@ print("\n Đã lưu train/val/test scaled")
 # Age và NCP có phân phối lệch (skewed) nên dùng RobustScaler để giảm ảnh hưởng của outliers
 # Height, Weight, CH2O, FAF có phân phối gần chuẩn (normal) nên dùng StandardScaler để chuẩn hóa về mean=0 và std=1, giúp PCA/LDA hoạt động tốt hơn.
 
+
+
+
+
+#PCA thì sau scale cần phải kiểm tra 
