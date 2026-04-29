@@ -17,7 +17,7 @@ labels = [f"Class {i}" for i in range(n_classes)]
 colors = plt.cm.tab10(np.linspace(0, 0.7, n_classes))
 
 # ── PCA visualization (2 components) ──────────────────────
-pca = PCA(n_components=14)
+pca = PCA(n_components=10)
 X_pca = pca.fit_transform(X)
 
 print("=== PCA ===")
@@ -98,10 +98,6 @@ df_lda['NObeyesdad'] = y
 df_lda.to_csv('D:\\MachineLearning\\BTL\\data\\lda_data.csv', index=False)
 
 print("Đã lưu LDA data!")
-
-
-
-
 
 
 
