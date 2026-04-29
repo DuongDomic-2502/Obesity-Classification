@@ -73,7 +73,31 @@ n_90 = np.argmax(cumvar >= 0.90) + 1
 print(f"\nPCA: cần {n_90} components để đạt 90%, {n_95} để đạt 95%")
 
 
+# Convert PCA result to DataFrame
+pca_columns = [f'PC{i+1}' for i in range(X_pca.shape[1])]
+df_pca = pd.DataFrame(X_pca, columns=pca_columns)
 
+# Add label
+df_pca['NObeyesdad'] = y
+
+# Save file
+df_pca.to_csv('D:\\MachineLearning\\BTL\\data\\pca_data.csv', index=False)
+
+print("Đã lưu PCA data!")
+
+
+
+# Convert LDA result to DataFrame
+lda_columns = [f'LD{i+1}' for i in range(X_lda.shape[1])]
+df_lda = pd.DataFrame(X_lda, columns=lda_columns)
+
+# Add label
+df_lda['NObeyesdad'] = y
+
+# Save file
+df_lda.to_csv('D:\\MachineLearning\\BTL\\data\\lda_data.csv', index=False)
+
+print("Đã lưu LDA data!")
 
 
 
