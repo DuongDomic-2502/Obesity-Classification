@@ -7,7 +7,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 import warnings
 warnings.filterwarnings('ignore')
 
-data = pd.read_csv('D:\\MachineLearning\\BTL\\data\\scaled\\train_scaled.csv')
+data = pd.read_csv("D:\MachineLearning\BTL\data\scaled\data_scaled.csv")
 
 X = data.drop(columns=['NObeyesdad']).values
 y = data['NObeyesdad'].astype(int).values

@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv('D:\\MachineLearning\\BTL\\ObesityDataSet_raw_and_data_sinthetic.csv')
+df = pd.read_csv('D:\\MachineLearning\\BTL\\data\\ObesityDataSet_raw_and_data_sinthetic.csv')
 
 ############################################## SPLIT ##########################################
 X = df.drop('NObeyesdad', axis=1)
@@ -41,7 +41,7 @@ for col in binary_cols:
     X_test[col]  = X_test[col].map(binary_mapping)
 
 # 2. MTRANS (Ordinal)
-mtrans_order = ['Automobile', 'Motorbike', 'Public_Transportation', 'Bike', 'Walking']
+mtrans_order = ['Walking','Bike','Motorbike', 'Automobile', 'Public_Transportation']
 
 for data in [X_train, X_val, X_test]:
     data['MTRANS'] = pd.Categorical(

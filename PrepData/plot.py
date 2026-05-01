@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv('D:\\MachineLearning\\BTL\\data\\scaled\\train_scaled.csv') 
+df = pd.read_csv("D:\\MachineLearning\\BTL\\data\\scaled\\data_scaled.csv") 
 
 cols   = ['Age', 'Height', 'Weight', 'NCP', 'CH2O', 'FAF']
 colors = ['#4C72B0', '#DD8452', '#55A868', '#C44E52', '#8172B2', '#937860']

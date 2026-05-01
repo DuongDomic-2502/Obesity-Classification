@@ -3,9 +3,9 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler, RobustScaler
 
 
-train = pd.read_csv('D:\\MachineLearning\\BTL\\data\\train.csv')
-val   = pd.read_csv('D:\\MachineLearning\\BTL\\data\\val.csv')
-test  = pd.read_csv('D:\\MachineLearning\\BTL\\data\\test.csv')
+train = pd.read_csv('D:\\MachineLearning\\BTL\\train.csv')
+val   = pd.read_csv('D:\\MachineLearning\\BTL\\val.csv')
+test  = pd.read_csv('D:\\MachineLearning\\BTL\\test.csv')
 
 ########################################## TÁCH X - y ###########################################
 
@@ -21,7 +21,7 @@ y_test = test['NObeyesdad']
 ###################################### CHUẨN HÓA DỮ LIỆU ######################################
 
 robust_cols   = ['Age', 'NCP']
-standard_cols = ['Height', 'Weight', 'CH2O', 'FAF']
+standard_cols = ['Height', 'Weight', 'CH2O', 'FAF', 'FCVC', 'TUE']
 
 # Copy để tránh warning
 X_train_scaled = X_train.copy()
