@@ -7,7 +7,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 import warnings
 warnings.filterwarnings('ignore')
 
-data = pd.read_csv("D:\MachineLearning\BTL\data\scaled\data_scaled.csv")
+data = pd.read_csv("D:\\MachineLearning\\BTL\\data\\scaled\\train_scaled.csv")
 
 X = data.drop(columns=['NObeyesdad']).values
 y = data['NObeyesdad'].astype(int).values
@@ -16,7 +16,7 @@ n_classes = len(np.unique(y))
 labels = [f"Class {i}" for i in range(n_classes)]
 colors = plt.cm.tab10(np.linspace(0, 0.7, n_classes))
 
-# ── PCA visualization (2 components) ──────────────────────
+# ── PCA visualization (10 components) ──────────────────────
 pca = PCA(n_components=10)
 X_pca = pca.fit_transform(X)
 
@@ -25,7 +25,9 @@ print(f"Explained variance ratio : {pca.explained_variance_ratio_}")
 print(f"Tổng phương sai giữ lại  : {pca.explained_variance_ratio_.sum():.3f}")
 
 # ── LDA visualization ──────────────────────────────────────
-lda = LinearDiscriminantAnalysis(n_components=5)
+n_classes = len(np.unique(y))
+n_components_lda = min(n_classes - 1, X.shape[1], 2)
+lda = LinearDiscriminantAnalysis(n_components=n_components_lda)
 X_lda = lda.fit_transform(X, y)
 
 print("\n=== LDA ===")

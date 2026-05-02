@@ -4,17 +4,17 @@ import seaborn as sns
 
 df = pd.read_csv("D:\\MachineLearning\\BTL\\data\\scaled\\data_scaled.csv") 
 
-cols   = ['Age', 'Height', 'Weight', 'NCP', 'CH2O', 'FAF']
-colors = ['#4C72B0', '#DD8452', '#55A868', '#C44E52', '#8172B2', '#937860']
+cols   = ['Age', 'Height', 'Weight', 'NCP', 'CH2O', 'FAF','FCVC', 'TUE']
+colors = ['#4C72B0', '#DD8452', '#55A868', '#C44E52', '#8172B2', '#937860', '#DA8BC3', '#8C8C8C']
 
 # ============================================================
 # 1. HISTOGRAM
 # ============================================================
-fig, axes = plt.subplots(2, 3, figsize=(15, 9))
+fig, axes = plt.subplots(2, 4, figsize=(20, 10))
 fig.suptitle('Phân phối các đặc trưng liên tục', fontsize=16, fontweight='bold')
 
 for i, (col, color) in enumerate(zip(cols, colors)):
-    ax = axes[i // 3][i % 3]
+    ax = axes[i // 4][i % 4]
     skew_val = df[col].skew()
 
     ax.hist(df[col].dropna(), bins=30, color=color,
@@ -39,11 +39,11 @@ plt.show()
 # ============================================================
 # 2. BOXPLOT
 # ============================================================
-fig, axes = plt.subplots(2, 3, figsize=(15, 9))
+fig, axes = plt.subplots(2, 4, figsize=(20, 10))
 fig.suptitle('Phân phối và Outlier các đặc trưng liên tục', fontsize=16, fontweight='bold')
 
 for i, (col, color) in enumerate(zip(cols, colors)):
-    ax = axes[i // 3][i % 3]
+    ax = axes[i // 4][i % 4]
 
     ax.boxplot(df[col].dropna(), patch_artist=True, vert=True,
                flierprops=dict(marker='o', markerfacecolor=color, markersize=4, alpha=0.5),

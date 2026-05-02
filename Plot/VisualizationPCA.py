@@ -1,28 +1,18 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-import numpy as np
 from matplotlib.gridspec import GridSpec
 
-# --- Đọc dữ liệu (đã scale sẵn) ---
-df = pd.read_csv(r"D:\MachineLearning\BTL\data\scaled\data_scaled.csv")
+# --- Đọc dữ liệu đã PCA sẵn ---
+df = pd.read_csv(r"D:\MachineLearning\BTL\data\pca_data.csv")
 
 # --- Tách X và y ---
-X = df.drop(columns=['NObeyesdad'])
+X_pca = df[['PC1', 'PC2', 'PC3', 'PC4']].values
 y = df['NObeyesdad']
 
 # --- Encode label để vẽ màu ---
 y_cat = pd.Categorical(y)
 y_codes = y_cat.codes
 class_names = y_cat.categories
-
-# --- Bỏ StandardScaler vì data đã scale sẵn ---
-X = X.values
-
-# --- PCA ---
-pca = PCA(n_components=6)
-X_pca = pca.fit_transform(X)
 
 # --- Colormap ---
 n_classes = len(class_names)
